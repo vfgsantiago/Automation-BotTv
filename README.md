@@ -1,7 +1,7 @@
 # 📊 Corporate Dashboard Automator
 
 ![Badge Status](https://img.shields.io/badge/Status-Active-brightgreen)
-![Badge .NET](https://img.shields.io/badge/.NET-Core%2F5%2B-purple)
+![Badge .NET](https://img.shields.io/badge/.NET-Core%2F8-purple)
 ![Badge Selenium](https://img.shields.io/badge/Selenium-WebDriver-43B02A)
 ![Badge License](https://img.shields.io/badge/License-MIT-blue)
 
