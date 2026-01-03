@@ -1,0 +1,30 @@
+﻿@inject Microsoft.Extensions.Configuration.IConfiguration config
+
+<div class="modal fade" id="modalTutorialXPath" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header text-gray-dark bg-gray-light">
+                <h5 class="modal-title">O que é XPath e como coletar?</h5>
+                <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <p>O <span class="fw-bold">XPath (XML Path Language)</span> é uma linguagem de consulta para selecionar nós em um documento HTML/XML. Ele é usado para encontrar elementos na página web para que a automação possa interagir com eles.</p>
+                <h6 class="text-orange">Passo a Passo para Coletar o XPath no Chrome:</h6>
+                <ol>
+                    <li>Abra a página web que deseja automatizar.</li>
+                    <li>Clique com o botão direito do mouse no elemento (botão, campo, link, etc.) que você quer selecionar e escolha <span class="fw-bold">"Inspecionar"</span>.</li>
+                    <li>A ferramenta de desenvolvedor do navegador será aberta, e o elemento HTML correspondente estará selecionado.</li>
+                    <li>Clique com o botão direito do mouse no código HTML do elemento selecionado.</li>
+                    <li>No menu de contexto, vá em <span class="fw-bold">"Copiar"</span> e depois em <span class="fw-bold text-orange">"Copiar XPath"</span>.</li>
+                    <li>Cole o XPath copiado no campo <span class="fw-bold">"Localizador (XPath)"</span> do formulário.</li>
+                </ol>
+                <p class="mt-3">
+                    Caso ainda tenha dúvidas, acesse o vídeo
+                    <a href="@config["UrlVideo"]/capturar_xpath.mp4" class="fw-bold text-green-light" target="_blank">
+                        capturar xpath
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

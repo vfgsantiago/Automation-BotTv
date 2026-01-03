@@ -1,0 +1,51 @@
+﻿@model PainelViewMOD
+@{
+    ViewData["Title"] = "Cadastrar Painel";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="d-flex align-items-center mb-4">
+        <i class="fas fa-plus-circle fa-2x text-green-light me-2"></i>
+        <h2 class="mb-0 text-gray-dark">Cadastrar Painel</h2>
+    </div>
+
+    @using (Html.BeginForm("Cadastrar", "Painel", FormMethod.Post))
+    {
+        @Html.HiddenFor(m => m.SnAtivo)
+
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-8">
+                        @Html.LabelFor(m => m.NoPainel, new { @class = "form-label text-gray-dark" })
+                        @Html.TextBoxFor(m => m.NoPainel, new { @class = "form-control", placeholder = "Informe o nome do painel", maxlength = "200" })
+                        @Html.ValidationMessageFor(m => m.NoPainel, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        @Html.LabelFor(m => m.CdPainelTipo, new { @class = "form-label text-gray-dark" })
+                        @Html.DropDownListFor(m => m.CdPainelTipo, (SelectList)ViewBag.ListaPainelTipo, "Selecione...", new { @class = "form-select" })
+                        @Html.ValidationMessageFor(m => m.CdPainelTipo, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-12">
+                        @Html.LabelFor(m => m.TxUrlPainel, new { @class = "form-label text-gray-dark" })
+                        @Html.TextBoxFor(m => m.TxUrlPainel, new { @class = "form-control", placeholder = "Informe a URL destino do painel...", maxlength = "300" })
+                        @Html.ValidationMessageFor(m => m.TxUrlPainel, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-6 text-start">
+                        <a href="@Url.Action("Index")" class="btn btn-outline-green">
+                            <i class="fas fa-chevron-left me-1"></i> Cancelar
+                        </a>
+                    </div>
+                    <div class="col-6 text-end">
+                        <button type="submit" class="btn btn-green-light text-white">
+                            <i class="fas fa-save me-1"></i> Cadastrar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

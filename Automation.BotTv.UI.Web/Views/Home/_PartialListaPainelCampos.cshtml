@@ -1,0 +1,65 @@
+﻿@model List<PainelCampoMOD>
+
+<div class="tab-pane fade show active" id="campos" role="tabpanel" aria-labelledby="campos-tab">
+    <h4 class="text-gray-dark mb-3">Campos de Automação Vinculados</h4>
+    <button type="button" class="btn btn-green-light text-white mb-3" data-bs-toggle="modal" data-bs-target="#modalAdicionarCampo">
+        <i class="fas fa-plus me-1"></i> Adicionar Campo
+    </button>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover mt-3">
+            <thead>
+                <tr>
+                    <th class="bg-gray-light text-gray-dark">Ordem</th>
+                    <th class="bg-gray-light text-gray-dark">Nome do Campo</th>
+                    <th class="bg-gray-light text-gray-dark">Tipo de Campo</th>
+                    <th class="bg-gray-light text-gray-dark">Ação</th>
+                    <th class="bg-gray-light text-gray-dark">XPath</th>
+                    <th class="bg-gray-light text-gray-dark text-center">Ações</th>
+                </tr>
+            </thead>
+            <tbody id="painelCamposSortable">
+                @if (Model != null && Model.Any())
+                {
+                    @foreach (var item in Model.OrderBy(pc => pc.NrOrdem))
+                    {
+                        <tr data-id="@item.CdPainelCampo">
+                            <td>@item.NrOrdem</td>
+                            <td>@item.Campo.NoCampo</td>
+                            <td>@item.Campo.CampoTipo.NoCampoTipo</td>
+                            <td>@item.Campo.CampoAcao.NoAcao</td>
+                            <td>@item.Campo.TxPath</td>
+                            <td class="text-center">
+                                <a href="#" class="text-green-light fs-5 btn-editar-campo" title="Editar Campo"
+                                   data-bs-toggle="modal"
+                                   data-cdpainelcampo="@item.CdPainelCampo"
+                                   data-cdpainel="@item.CdPainel"
+                                   data-nrordem="@item.NrOrdem"
+                                   data-snvalidacao="@item.SnCampoValidacao"
+                                   data-cdcampo="@item.CdCampo"
+                                   data-nocampo="@item.Campo.NoCampo"
+                                   data-txpath="@item.Campo.TxPath"
+                                   data-cdcampotipo="@item.Campo.CdCampoTipo"
+                                   data-cdacao="@item.Campo.CdAcao">
+                                    <i class="fas fa-edit me-2"></i>
+                                </a>
+                                <a href="#" class="text-red fs-5 btn-remover-campo" title="Remover Campo"
+                                   data-bs-toggle="modal"
+                                   data-cdpainelcampo="@item.CdPainelCampo"
+                                   data-nocampo="@item.Campo.NoCampo">
+                                    <i class="fas fa-trash me-2"></i>
+                                </a>
+                                <span class="fas fa-bars text-orange"></span>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">Nenhum campo de automação cadastrado para este painel.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

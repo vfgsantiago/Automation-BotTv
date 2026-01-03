@@ -1,0 +1,90 @@
+﻿<aside class="app-sidebar bg-gray-light shadow">
+    <div class="sidebar-brand">
+        <a href="#" class="brand-link">
+            <img src="logo.png" alt="Logo" class="brand-image" style="opacity: .8">
+        </a>
+    </div>
+    <div class="sidebar-wrapper overflow-hidden">
+        <div>
+            <nav class="mt-1">
+                <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
+                    <li class="nav-item mt-2">
+                        <div href="#" class="nav-item">
+                            <a href="@Url.Action("Index", "Home")" class="nav-link">
+                                <i class="nav-icon fas fa-chart-line text-gray-dark"></i>
+                                <p class="text-gray-dark">Automação</p>
+                            </a>
+                        </div>
+                    </li>
+                    <hr />
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-columns text-gray-dark"></i>
+                            <p class="text-gray-dark">
+                                Painéis
+                                <i class="nav-arrow bi bi-chevron-right text-gray-dark"></i>
+                                <i class="nav-arrow fa fa-chevron-right text-gray-dark"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="@Url.Action("Index", "Painel")" class="nav-link">
+                                    <i class="nav-icon fas fa-columns text-white"></i>
+                                    <p class="text-white">Cadastrados</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="@Url.Action("Index", "PainelTipo")" class="nav-link">
+                                    <i class="nav-icon fas fa-list text-white"></i>
+                                    <p class="text-white">Tipos</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-map-pin text-gray-dark"></i>
+                            <p class="text-gray-dark">
+                                Campos
+                                <i class="nav-arrow bi bi-chevron-right text-gray-dark"></i>
+                                <i class="nav-arrow fa fa-chevron-right text-gray-dark"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="@Url.Action("Index", "CampoAcao")" class="nav-link">
+                                    <i class="nav-icon fas fa-hand-point-up text-white"></i>
+                                    <p class="text-white">Ações</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="@Url.Action("Index", "CampoTipo")" class="nav-link">
+                                    <i class="nav-icon fas fa-list text-white"></i>
+                                    <p class="text-white">Tipos</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-desktop text-gray-dark"></i>
+                            <p class="text-gray-dark">
+                                Maquinas
+                                <i class="nav-arrow bi bi-chevron-right text-gray-dark"></i>
+                                <i class="nav-arrow fa fa-chevron-right text-gray-dark"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="@Url.Action("Index", "Maquina")" class="nav-link">
+                                    <i class="nav-icon fas fa-desktop text-white"></i>
+                                    <p class="text-white">Cadastradas</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</aside> 

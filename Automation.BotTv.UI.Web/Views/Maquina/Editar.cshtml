@@ -1,0 +1,46 @@
+﻿@model MaquinaViewMOD
+@{
+    ViewData["Title"] = "Editar Máquina";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="d-flex align-items-center mb-4">
+        <i class="fas fa-edit fa-2x text-orange me-2"></i>
+        <h2 class="mb-0 text-gray-dark">Editar Máquina</h2>
+    </div>
+
+    @using (Html.BeginForm("Editar", "Maquina", FormMethod.Post))
+    {
+        @Html.HiddenFor(m => m.CdMaquina)
+        @Html.HiddenFor(m => m.SnAtivo)
+
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        @Html.LabelFor(m => m.TxIdMaquina, new { @class = "form-label text-gray-dark" })
+                        @Html.TextBoxFor(m => m.TxIdMaquina, new { @class = "form-control", placeholder = "Informe a identificação da máquina", maxlength = "200" })
+                        @Html.ValidationMessageFor(m => m.TxIdMaquina, "", new { @class = "text-danger" })
+                    </div> <div class="col-md-8">
+                        @Html.LabelFor(m => m.NoMaquina, new { @class = "form-label text-gray-dark" })
+                        @Html.TextBoxFor(m => m.NoMaquina, new { @class = "form-control", placeholder = "Defina um nome para a máquina", maxlength = "300", required="required" })
+                        @Html.ValidationMessageFor(m => m.NoMaquina, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-6 text-start">
+                        <a href="@Url.Action("Index")" class="btn btn-outline-green">
+                            <i class="fas fa-chevron-left me-1"></i> Cancelar
+                        </a>
+                    </div>
+                    <div class="col-6 text-end">
+                        <button type="submit" class="btn btn-green-light text-white">
+                            <i class="fas fa-save me-1"></i> Salvar Alterações
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

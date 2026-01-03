@@ -1,0 +1,52 @@
+﻿@model DetalheViewMOD
+
+<div class="modal fade" id="modalEditarCampo" tabindex="-1" aria-labelledby="modalEditarCampoLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-gray-light text-gray-dark">
+                <h5 class="modal-title" id="modalEditarCampoLabel">Editar Campo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            @using (Html.BeginForm("SalvarCampo", "Home", FormMethod.Post, new { id = "formSalvarCampo" }))
+            {
+                <div class="modal-body">
+                    <input type="hidden" name="CdPainelCampo" id="editCdPainelCampo" />
+                    <input type="hidden" name="CdPainel" id="editCdPainel" />
+                    <input type="hidden" name="Campo.CdCampo" id="editCdCampo" />
+
+                    <div class="mb-3">
+                        <label for="editNoCampo" class="form-label text-gray-dark">Nome do Campo</label>
+                        <input type="text" name="Campo.NoCampo" id="editNoCampo" class="form-control" placeholder="Nome do campo" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="editTxPath" class="form-label text-gray-dark">XPath</label>
+                        <div class="input-group">
+                            <input type="text" name="Campo.TxPath" id="editTxPath" class="form-control" placeholder="XPath do campo" />
+                            <span type="button" class="input-group-text" data-bs-toggle="modal" data-bs-target="#modalTutorialXPath">
+                                <i class="fas fa-lightbulb text-orange" title="O que é XPath?"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editCdCampoTipo" class="form-label text-gray-dark">Tipo de Campo</label>
+                        @Html.DropDownList("Campo.CdCampoTipo", new SelectList(Model.TiposDeCampoDisponiveis, "CdCampoTipo", "NoCampoTipo"), "Selecione...", new { @class = "form-select", id = "editCdCampoTipo" })
+                    </div>
+                    <div class="mb-3">
+                        <label for="editCdAcao" class="form-label text-gray-dark">Ação</label>
+                        @Html.DropDownList("Campo.CdAcao", new SelectList(Model.AcoesDeCampoDisponiveis, "CdAcao", "NoAcao"), "Selecione...", new { @class = "form-select", id = "editCdAcao" })
+                    </div>
+                    <div class="mb-3 d-none">
+                        <label for="editNrOrdem" class="form-label text-gray-dark">Ordem</label>
+                        <input type="number" name="NrOrdem" id="editNrOrdem" class="form-control" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-green-light" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-orange text-white">
+                        <i class="fas fa-save me-1"></i> Salvar
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

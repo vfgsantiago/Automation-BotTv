@@ -1,0 +1,153 @@
+﻿@model PainelViewMOD
+@{
+    ViewData["Title"] = "Painel";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid px-4">
+    <div class="row mb-3">
+        <div class="col-9 text-start">
+            <h3 class="text-gray-dark">
+                <i class="fas fa-list text-orange me-2"></i>Painel
+            </h3>
+        </div>
+        <div class="col-3 text-end">
+            <a href="@Url.Action("Cadastrar", "Painel")" class="btn btn-orange text-white">
+                <i class="fas fa-plus me-1"></i> Novo Painel
+            </a>
+        </div>
+    </div>
+    <form asp-action="Index" method="get" class="row g-3 align-items-end mb-4">
+        <div class="col-md-5 text-start">
+            <label for="filtro" class="form-label text-gray">Nome</label>
+            <input type="text" name="filtro" class="form-control" placeholder="Buscar pelo nome" value="@ViewBag.Filtro" />
+        </div>
+        <div class="col-md-2">
+            <label for="cdPainelTipo" class="form-label text-gray">Tipo de Painel</label>
+            <select id="cdPainelTipo" name="cdPainelTipo" class="form-control" asp-items="@(ViewBag.ListaPainelTipo)">
+                <option disabled selected>Todos</option>
+            </select>
+            </div>
+        <div class="col-md-2">
+            <label for="snAtivo" class="form-label text-gray">Status</label>
+            <select id="snAtivo" name="snAtivo" class="form-control" asp-items="@(ViewBag.ListaSimNao)">
+                <option disabled selected>Todos</option>
+            </select>
+        </div>
+        <div class="col-md-3 d-flex gap-1 justify-content-end">
+            <button type="submit" class="btn btn-green text-white">
+                <i class="fas fa-search me-1"></i> Buscar
+            </button>
+            <a href="@Url.Action("Index")" class="btn btn-outline-green-light">
+                <i class="fas fa-times me-1"></i> Limpar
+            </a>
+        </div>
+    </form>
+    <div class="mb-2">
+        <small class="text-muted">Total de Painéis: <strong>@Model.QtdTotalDeRegistros</strong></small>
+    </div>
+    <div class="card shadow-sm">
+        <div class="card-body table-responsive p-0">
+            <table class="table table-striped table-hover text-nowrap">
+                <thead class="table-light">
+                    <tr>
+                        <th class="bg-gray-light text-orange">Código</th>
+                        <th class="bg-gray-light text-orange">Nome</th>
+                        <th class="bg-gray-light text-orange">Tipo</th>
+                        <th class="bg-gray-light text-orange text-center">Status</th>
+                        <th class="bg-gray-light text-orange">Alteração</th>
+                        <th class="bg-gray-light text-orange text-center">Opções</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.ListaPainel != null && Model.ListaPainel.Count > 0)
+                    {
+                        foreach (var painel in Model.ListaPainel)
+                        {
+                            var ativo = painel.SnAtivo == "S";
+                            <tr>
+                                <td>@painel.CdPainel</td>
+                                <td>@painel.NoPainel</td>
+                                <td>@painel.PainelTipo.NoPainelTipo</td>
+                                <td class="text-center">
+                                    <div class="row">
+                                        <div class="col-6 text-end">
+                                            <span class="badge rounded-pill @(ativo ? "bg-success" : "bg-red")">
+                                                @(ativo ? "Ativo" : "Inativo")
+                                            </span>
+                                        </div>
+                                        <div class="col-6 text-start">
+                                            <div class="form-check form-switch d-inline-block ms-2">
+                                                <input class="form-check-input" type="checkbox"
+                                                       onchange="enviarAlteracao(@painel.CdPainel, this)"
+                                                       @(ativo ? "checked" : "") title="Alterar status" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>@painel.DtAlteracao.ToString("dd/MM/yyyy HH:mm")</td>
+                                <td class="text-center">
+                                     <a data-bs-toggle="modal" data-bs-target="#modalConsultaPainel_@painel.CdPainel" title="Consultar painel">
+                                        <i class="fas fa-search fa-lg text-green-light me-3"></i>
+                                    </a>
+                                    <a href="@Url.Action("Editar", new { cdPainel = painel.CdPainel })">
+                                        <i class="fas fa-edit fa-lg text-orange"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            @await Html.PartialAsync("_PartialModalConsultaPainel", painel)
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center text-muted py-4">
+                                <i class="fas fa-info-circle me-2"></i>Nenhum Painel encontrado.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<nav class="mt-4">
+    <ul class="pagination justify-content-center">
+        @for (int i = 1; i <= Model.TotalPaginas; i++)
+        {
+            <li class="page-item  @(i == Model.PaginaAtual ? "active" : "")">
+                <a class="page-link bg-orange border-0" 
+                   href="@Url.Action("Index", new { 
+                        pagina = i, 
+                        filtro = ViewBag.Filtro,
+                        CdPainelTipo = ViewBag.PainelTipo,  
+                        snAtivo = ViewBag.SnAtivo 
+                    })">
+                    @i
+                </a>
+            </li>
+        }
+    </ul>
+</nav>
+<script>
+    function enviarAlteracao(cdPainel, checkbox) {
+        $.ajax({
+            url: '@Url.Action("AlterarStatus", "Painel")',
+            type: 'POST',
+            data: { cdPainel: cdPainel },
+            success: function () {
+                const badge = $(checkbox).closest('.row').find('.badge');
+                if (checkbox.checked) {
+                    badge.removeClass('bg-red').addClass('bg-success').text('Ativo');
+                } else {
+                    badge.removeClass('bg-success').addClass('bg-red').text('Inativo');
+                }
+                toastr.success('Status alterado!')
+            },
+            error: function () {
+                toastr.error('Erro ao alterar status!')
+                checkbox.checked = !checkbox.checked;
+            }
+        });
+    }
+</script>

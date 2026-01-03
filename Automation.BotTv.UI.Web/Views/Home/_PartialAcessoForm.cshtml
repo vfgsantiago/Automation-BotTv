@@ -1,0 +1,38 @@
+﻿@model AcessoMOD
+
+@using (Html.BeginForm("SalvarAcesso", "Home", FormMethod.Post, new { id = "formAcesso" }))
+{
+    @Html.HiddenFor(m => m.CdAcesso)
+    <input type="hidden" name="cdPainel" value="@ViewBag.CdPainel" />
+
+    <div class="row g-3 mt-2">
+        <div class="col-md-5">
+            @Html.LabelFor(m => m.TxLogin, new { @class = "form-label" })
+            @Html.TextBoxFor(m => m.TxLogin, new { @class = "form-control", placeholder = "Login", required = "required" })
+            @Html.ValidationMessageFor(m => m.TxLogin, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(m => m.TxSenhaCifrada, "Senha", new { @class = "form-label" })
+            <div class="input-group">
+                <input type="password" id="TxSenhaCifrada" name="TxSenhaCifrada" class="form-control" placeholder="Senha" />
+                <span class="input-group-text" type="button" id="togglePassword">
+                    <i class="fas fa-eye text-orange"></i>
+                </span>
+            </div>
+        </div>
+        <div class="col-3 text-end">
+            @Html.Label("")<br />
+            <button type="submit" class="btn btn-green-light text-white">
+                <i class="fas fa-save me-1"></i>
+                @if (Model.CdAcesso > 0)
+                {
+                    <text>Atualizar Credenciais</text>
+                }
+                else
+                {
+                    <text>Salvar Credenciais</text>
+                }
+            </button>
+        </div>
+    </div>
+}

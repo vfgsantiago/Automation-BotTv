@@ -1,0 +1,18 @@
+﻿@model DetalheViewMOD
+
+<div class="tab-pane fade" id="acesso" role="tabpanel" aria-labelledby="acesso-tab">
+    <h4 class="text-gray-dark mb-3">Gerenciar Credenciais de Acesso</h4>
+    @{
+        ViewBag.CdPainel = Model.Painel.CdPainel;
+    }
+    @if (Model.Acesso != null)
+    {
+        <div class="badge bg-green text-white p-2">Já existe um acesso cadastrado para este painel.</div>
+        @await Html.PartialAsync("_PartialAcessoForm", Model.Acesso)
+    }
+    else
+    {
+        <div class="badge bg-red text-white p-3">Nenhuma credencial de acesso encontrada. Cadastre uma abaixo.</div>
+        @await Html.PartialAsync("_PartialAcessoForm", new US.Automation.BotTv.Model.AcessoMOD())
+    }
+</div>

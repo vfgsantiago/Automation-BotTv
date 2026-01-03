@@ -1,0 +1,20 @@
+﻿<div class="modal fade" id="modalRemoverCampo" tabindex="-1" aria-labelledby="modalRemoverCampoLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-red text-white">
+                <h5 class="modal-title" id="modalRemoverCampoLabel">Confirmar Remoção</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Tem certeza de que deseja remover o campo "<strong id="campoRemoverNome"></strong>"?</p>
+                <p class="text-muted"><small>Esta ação é irreversível e irá recalcular a ordem dos campos restantes.</small></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-green-light" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-red text-white" id="btnConfirmarRemocaoCampo">
+                    <i class="fas fa-trash-alt me-1"></i> Remover
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+﻿@model PainelMaquinaMOD
+
+<div class="modal fade" id="modalEditarMaquina" tabindex="-1" role="dialog" aria-labelledby="modalEditarMaquinaLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalEditarMaquinaLabel">Editar Máquina</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formEditarMaquina" asp-action="SalvarMaquina" asp-controller="Home" method="post">
+                    <input type="hidden" id="editCdMaquina" name="CdMaquina" />
+                    <input type="hidden" name="cdPainel" value="@Model.CdPainel" />
+                    <div class="mb-3">
+                        <label for="editTxIdMaquina" class="form-label">Identificação</label>
+                        <input type="text" class="form-control" id="editTxIdMaquina" name="TxIdMaquina" required />
+                    </div><div class="mb-3">
+                        <label for="editNoMaquina" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="editNoMaquina" name="NoMaquina" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="editSnAtivo" class="form-label">Status</label>
+                        <select class="form-control" id="editSnAtivo" name="SnAtivo">
+                            <option value="S">Ativo</option>
+                            <option value="N">Inativo</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary" form="formEditarMaquina">Salvar Alterações</button>
+            </div>
+        </div>
+    </div>
+</div>

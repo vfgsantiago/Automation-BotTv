@@ -1,0 +1,60 @@
+﻿@model DetalheViewMOD
+
+<div class="modal fade" id="modalAdicionarCampo" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header text-gray-dark bg-gray-light">
+                <h5 class="modal-title">Adicionar Novo Campo</h5>
+                <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formAdicionarCampo">
+                    <input type="hidden" name="CdPainel" value="@Model.Painel.CdPainel" />
+                    <div class="mb-3">
+                        <label for="Campo.NoCampo" class="form-label">Nome do Campo</label>
+                        <input type="text" id="Campo.NoCampo" name="Campo.NoCampo" class="form-control" required placeholder="Ex: Botão de Login" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="Campo.TxPath" class="form-label">Localizador (XPath)</label>
+                        <div class="input-group">
+                            <input type="text" id="Campo.TxPath" name="Campo.TxPath" class="form-control" required placeholder="Ex: //*[id='btn-login']" />
+                            <span type="button" class="input-group-text" data-bs-toggle="modal" data-bs-target="#modalTutorialXPath">
+                                <i class="fas fa-lightbulb text-orange" title="O que é XPath?"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-md-6 mb-3">
+                            <label for="Campo.CdCampoTipo" class="form-label">Tipo de Campo</label>
+                            <select id="Campo.CdCampoTipo" name="Campo.CdCampoTipo" class="form-select" required>
+                                <option value="">Selecione...</option>
+                                @foreach (var tipo in Model.TiposDeCampoDisponiveis)
+                                {
+                                    <option value="@tipo.CdCampoTipo">@tipo.NoCampoTipo</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="Campo.CdAcao" class="form-label">Ação</label>
+                            <select id="Campo.CdAcao" name="Campo.CdAcao" class="form-select" required>
+                                <option value="">Selecione...</option>
+                                @foreach (var acao in Model.AcoesDeCampoDisponiveis)
+                                {
+                                    <option value="@acao.CdAcao">@acao.NoAcao</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="NrOrdem" class="form-label">Ordem de Execução</label>
+                        <input type="number" id="NrOrdem" name="NrOrdem" class="form-control" required min="1" placeholder="Ex: 1" />
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-outline-green-light me-2" data-bs-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-orange text-white">Salvar Campo</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

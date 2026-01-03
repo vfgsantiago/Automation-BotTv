@@ -1,0 +1,31 @@
+﻿@{
+    var nomeCompleto = User.FindFirst("NmUsuario")?.Value ?? "";
+    var nomes = nomeCompleto.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+    string primeiroNome = nomes.Length > 0 ? nomes[0] : "";
+    string ultimoNome = nomes.Length > 1 ? nomes[nomes.Length - 1] : "";
+
+    string formatarNome(string nome) =>
+        char.ToUpper(nome[0]) + nome.Substring(1).ToLower();
+
+    var nomeFormatado = $"{formatarNome(primeiroNome)} {formatarNome(ultimoNome)}";
+}
+
+<nav class="app-header navbar navbar-expand bg-gray-light shadow">
+    <div class="container-fluid">
+        <ul class="navbar-nav">
+            <li class="nav-item"> <a class="nav-link" data-lte-toggle="sidebar" href="#" role="button"> <i class="fa fa-bars text-gray-dark"></i> </a> </li>
+        </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item user-menu me-2 mt-1">
+                <img src="@Configuration.GetSection("UrlRepositorio").Value/@User.FindFirst("Avatar").Value" class="user-image rounded-circle shadow bg-white" alt="User Image">
+                <span class="d-none d-md-inline text-gray-dark me-4" style="font-size: 1.1em;">@nomeFormatado</span>
+            </li>
+            <li class="nav-item user-menu me-3">
+                <a asp-controller="Login" asp-action="Sair" type="button" class="btn bg-red shadow text-white py-1 px-2 fw-light">
+                    sair<i class="ms-2 fas fa-arrow-alt-circle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>

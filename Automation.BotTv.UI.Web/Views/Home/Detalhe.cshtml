@@ -1,0 +1,339 @@
+﻿@model DetalheViewMOD
+@{
+    ViewData["Title"] = "Painel Detalhe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid mt-4 mb-5">
+    <div class="row mb-4">
+        <div class="col-8 text-start">
+            <h2 class="mb-0 text-gray-dark">
+                <i class="fas fa-chart-line text-orange me-2"></i>
+                Painel: @Model.Painel.NoPainel
+            </h2>
+        </div>
+        <div class="col-4 text-end">
+            <a class="btn btn-outline-green-light" href="@Url.Action("Index", "Home")">
+                <span class="fas fa-chevron-left me-2"></span>Voltar
+            </a>
+        </div>
+    </div>
+    <div class="card shadow-sm mb-4">
+        <div class="card-header text-gray-dark bg-gray-light">
+            <h5 class="mb-0">Dados Principais</h5>
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm("EditarPainel", "Home", FormMethod.Post))
+            {
+                @Html.HiddenFor(m => m.Painel.CdPainel)
+                @Html.HiddenFor(m => m.Painel.SnAtivo)
+                <div class="row g-3">
+                    <div class="col-md-8">
+                        @Html.LabelFor(m => m.Painel.NoPainel, new { @class = "form-label text-gray-dark" })
+                        @Html.TextBoxFor(m => m.Painel.NoPainel, new { @class = "form-control", placeholder = "Informe o nome do painel", maxlength = "200" })
+                        @Html.ValidationMessageFor(m => m.Painel.NoPainel, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        @Html.LabelFor(m => m.Painel.CdPainelTipo, new { @class = "form-label text-gray-dark" })
+                        @Html.DropDownListFor(m => m.Painel.CdPainelTipo, new SelectList(Model.TiposDePainelDisponiveis, "CdPainelTipo", "NoPainelTipo"), "Selecione...", new { @class = "form-select" })
+                        @Html.ValidationMessageFor(m => m.Painel.CdPainelTipo, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-12">
+                        @Html.LabelFor(m => m.Painel.TxUrlPainel, new { @class = "form-label text-gray-dark" })
+                        @Html.TextBoxFor(m => m.Painel.TxUrlPainel, new { @class = "form-control", placeholder = "Informe a URL destino do painel...", maxlength = "300" })
+                        @Html.ValidationMessageFor(m => m.Painel.TxUrlPainel, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    @if (Model.Painel.CdPainelTipo == 2)
+                    {
+                        <div class="col-6 text-start pt-2">
+                            <p class="text-gray-dark">
+                                obs:
+                                <span class="text-gray">Para painéis do Tableau, não é necessário cadastrar o</span>
+                                <span class="fw-bold font-italic badge bg-danger">BOTÃO FULLSCREEN</span>
+                            </p>
+                        </div>
+                        <div class="col-6 text-end">
+                            <button type="submit" class="btn btn-orange text-white">
+                                <i class="fas fa-save me-1"></i> Salvar Alterações
+                            </button>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-12 text-end">
+                            <button type="submit" class="btn btn-orange text-white">
+                                <i class="fas fa-save me-1"></i> Salvar Alterações
+                            </button>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="campos-tab" data-bs-toggle="tab" data-bs-target="#campos" type="button" role="tab" aria-controls="campos" aria-selected="true">
+                <i class="fas fa-hand-point-up me-2"></i>Campos e Ações
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="acesso-tab" data-bs-toggle="tab" data-bs-target="#acesso" type="button" role="tab" aria-controls="acesso" aria-selected="false">
+                <i class="fas fa-user-lock me-2"></i>Credenciais de Acesso
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="maquinas-tab" data-bs-toggle="tab" data-bs-target="#maquinas" type="button" role="tab" aria-controls="maquinas" aria-selected="false">
+                <i class="fas fa-desktop me-2"></i>Máquinas Vinculadas
+            </button>
+        </li>
+    </ul>
+    <div class="tab-content border border-top-0 rounded-2 bg-white p-3 shadow-sm" id="myTabContent">
+        @await Html.PartialAsync("_PartialListaPainelCampos", Model.PainelCampos)
+        @await Html.PartialAsync("_PartialAcesso", Model)
+        @await Html.PartialAsync("_PartialListaMaquinasPainel", Model.PainelMaquinas)
+    </div>
+</div>
+@await Html.PartialAsync("_PartialModalAdicionarCampo", Model)
+@await Html.PartialAsync("_PartialModalEditarCampo", Model)
+@await Html.PartialAsync("_PartialModalRemoverCampo")
+@await Html.PartialAsync("_PartialModalTutorialXPath")
+@await Html.PartialAsync("_PartialModalVincularMaquina", Model)
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Lógica para o formulário do modal de adicionar campo
+            $('#formAdicionarCampo').submit(function (event) {
+                event.preventDefault();
+                var formData = $(this).serialize();
+                $.ajax({
+                    url: '@Url.Action("AdicionarCampo", "Home")',
+                    type: 'POST',
+                    data: formData,
+                    success: function (response) {
+                        if (response.sucesso) {
+                            toastr.success(response.mensagem);
+                            location.reload();
+                        } else {
+                            toastr.error(response.mensagem);
+                        }
+                    },
+                    error: function () {
+                        toastr.error("Ocorreu um erro ao adicionar o campo. Tente novamente.");
+                    }
+                });
+            });
+
+            $('#formAdicionarCampo').on('submit', function () {
+                if (!$('#snCampoValidacao').is(':checked')) {
+                    $('<input>').attr({
+                        type: 'hidden',
+                        name: 'SnCampoValidacao',
+                        value: 'S'
+                    }).appendTo($(this));
+                }
+            });
+
+            // Lógica para o formulário do modal de vincular máquina
+            $('#formVincularMaquina').submit(function (event) {
+                event.preventDefault();
+                var formData = $(this).serialize();
+                $.ajax({
+                    url: '@Url.Action("VincularMaquina", "Home")',
+                    type: 'POST',
+                    data: formData,
+                    success: function (response) {
+                        if (response.sucesso) {
+                            location.reload();
+                            toastr.success(response.mensagem);
+                        } else {
+                            toastr.error(response.mensagem);
+                        }
+                    },
+                    error: function () {
+                        toastr.error("Ocorreu um erro ao vincular a máquina. Tente novamente.");
+                    }
+                });
+            });
+
+            // Lógica para o botão de desvincular
+            $('.btn-desvincular-maquina').on('click', function() {
+                var cdPainel = $(this).data('cdpainel');
+                var cdMaquina = $(this).data('cdmaquina');
+                var nomeMaquina = $(this).data('txidmaquina');
+                $('#nomeMaquinaModal').text(nomeMaquina);
+                $('#btnConfirmarDesvinculacao').data('cdpainel', cdPainel);
+                $('#btnConfirmarDesvinculacao').data('cdmaquina', cdMaquina);
+            });
+
+            // Manipulador de clique para o botão de confirmação dentro do modal
+            $('#btnConfirmarDesvinculacao').on('click', function() {
+                var cdPainel = $(this).data('cdpainel');
+                var cdMaquina = $(this).data('cdmaquina');
+
+                $.ajax({
+                    url: '@Url.Action("DesvincularMaquina", "Home")',
+                    type: 'POST',
+                    data: { cdPainel: cdPainel, cdMaquina: cdMaquina },
+                    success: function(response) {
+                        if (response.sucesso) {
+                            location.reload();
+                            toastr.success(response.mensagem);
+                        } else {
+                            toastr.error(response.mensagem);
+                        }
+                    },
+                    error: function() {
+                        toastr.error('Ocorreu um erro ao desvincular a máquina.');
+                    }
+                });
+            });
+
+            // Lógica para o botão de editar máquina
+            $('.btn-editar-maquina').on('click', function () {
+                var cdMaquina = $(this).data('cdmaquina');
+                var txIdMaquina = $(this).data('txidmaquina');
+                var noMaquina = $(this).data('nomaquina');
+                var snAtivo = $(this).data('snativo');
+                // Preencher os campos do modal
+                $('#editCdMaquina').val(cdMaquina);
+                $('#editTxIdMaquina').val(txIdMaquina);
+                $('#editNoMaquina').val(noMaquina);
+                $('#editSnAtivo').val(snAtivo);
+            });
+
+            // Lógica para mostrar/ocultar senha
+            $("#togglePassword").click(function () {
+                var passwordInput = $("#TxSenhaCifrada");
+                var icon = $(this).find("i");
+                if (passwordInput.attr("type") === "password") {
+                    passwordInput.attr("type", "text");
+                    icon.removeClass("fa-eye").addClass("fa-eye-slash");
+                    toastr.success("Acesso vísivel!")
+                } else {
+                    passwordInput.attr("type", "password");
+                    icon.removeClass("fa-eye-slash").addClass("fa-eye");
+                    toastr.error("Acesso invisível!")
+                }
+            });
+
+            // Lógica para o botão de editar campo
+            $(document).on('click', '.btn-editar-campo', function () {
+                var cdPainelCampo = $(this).data('cdpainelcampo');
+                var cdPainel = $(this).data('cdpainel');
+                var nrOrdem = $(this).data('nrordem');
+                var snCampoValidacao = $(this).data('snvalidacao');
+                var cdCampo = $(this).data('cdcampo');
+                var noCampo = $(this).data('nocampo');
+                var txPath = $(this).data('txpath');
+                var cdCampoTipo = parseInt($(this).data('cdcampotipo'));
+                var cdAcao = parseInt($(this).data('cdacao'));
+                $('#editCdPainelCampo').val(cdPainelCampo);
+                $('#editCdPainel').val(cdPainel);
+                $('#editNrOrdem').val(nrOrdem);
+                $('#editSnCampoValidacao').prop('checked', snCampoValidacao === 'S');
+                $('#editCdCampo').val(cdCampo);
+                $('#editNoCampo').val(noCampo);
+                $('#editTxPath').val(txPath);
+                var dropdownTipos = $('#editCdCampoTipo');
+                dropdownTipos.val(cdCampoTipo);
+                var dropdownAcoes = $('#editCdAcao');
+                dropdownAcoes.val(cdAcao);
+                $('#modalEditarCampo').modal('show');
+             });
+
+            // Lógica para o formulário do modal de salvar campo (edição)
+            $('#formSalvarCampo').submit(function (event) {
+                event.preventDefault();
+                var formData = $(this).serialize();
+                $.ajax({
+                    url: '@Url.Action("SalvarCampo", "Home")',
+                    type: 'POST',
+                    data: formData,
+                    success: function (response) {
+                        if (response.sucesso) {
+                            toastr.success(response.mensagem);
+                            location.reload();
+                        } else {
+                            toastr.error(response.mensagem);
+                        }
+                    },
+                    error: function () {
+                        toastr.error("Ocorreu um erro ao atualizar o campo. Tente novamente.");
+                    }
+                });
+            });
+
+            // Lógica para o botão de remover campo
+            $(document).on('click', '.btn-remover-campo', function () {
+                var cdPainelCampo = $(this).data('cdpainelcampo');
+                var nomeCampo = $(this).data('nocampo');
+                $('#campoRemoverNome').text(nomeCampo);
+                $('#btnConfirmarRemocaoCampo').data('cdpainelcampo', cdPainelCampo);
+                $('#modalRemoverCampo').modal('show');
+            });
+
+            // Lógica para confirmar a remoção do campo
+            $('#btnConfirmarRemocaoCampo').on('click', function () {
+                var cdPainelCampo = $(this).data('cdpainelcampo');
+                $.ajax({
+                    url: '@Url.Action("RemoverCampo", "Home")',
+                    type: 'POST',
+                    data: { cdPainelCampo: cdPainelCampo },
+                    success: function (response) {
+                        if (response.sucesso) {
+                            toastr.success(response.mensagem);
+                            location.reload();
+                        } else {
+                            toastr.error(response.mensagem);
+                        }
+                    },
+                    error: function () {
+                        toastr.error("Ocorreu um erro ao remover o campo. Tente novamente.");
+                    }
+                });
+            });
+
+            $("#painelCamposSortable").sortable({
+                // Adiciona um estilo visual para o item que está sendo arrastado
+                helper: 'clone',
+                // Define que os itens podem ser arrastados dentro do tbody
+                items: 'tr',
+                // Evento que é disparado quando o arrastar e soltar termina
+                stop: function(event, ui) {
+                    var newOrder = [];
+                    // Itera sobre a nova ordem das linhas na tabela
+                    $('#painelCamposSortable tr').each(function(index) {
+                        var campoId = $(this).data('id');
+                        // Pega o ID do campo e adiciona a um array
+                        newOrder.push(campoId);
+                        // Opcionalmente, atualiza a numeração de ordem na coluna da tabela para o usuário
+                        $(this).find('td:first').text(index + 1);
+                    });
+                    // Faz a chamada AJAX para o back-end
+                    $.ajax({
+                        url: '@Url.Action("ReordenarCampos", "Home")',
+                        type: 'POST',
+                        data: {
+                            painelId: @Model.Painel.CdPainel,
+                            // Passa o array de IDs como JSON
+                            campoIds: newOrder
+                        },
+                        success: function(response) {
+                            if (response.sucesso) {
+                                toastr.success(response.mensagem);
+                            } else {
+                                toastr.error(response.mensagem);
+                            }
+                        },
+                        error: function() {
+                            toastr.error("Erro ao reordenar os campos. Tente novamente.");
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

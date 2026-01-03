@@ -1,0 +1,46 @@
+﻿@model CampoTipoViewMOD
+@{
+    ViewData["Title"] = "Cadastrar Tipo de Campo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="d-flex align-items-center mb-4">
+        <i class="fas fa-plus-circle fa-2x text-green-light me-2"></i>
+        <h2 class="mb-0 text-gray-dark">Cadastrar Tipo de Campo</h2>
+    </div>
+
+    @using (Html.BeginForm("Cadastrar", "CampoTipo", FormMethod.Post))
+    {
+        @Html.HiddenFor(m => m.SnAtivo)
+
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        @Html.LabelFor(m => m.NoCampoTipo, new { @class = "form-label text-gray-dark" })
+                        @Html.TextBoxFor(m => m.NoCampoTipo, new { @class = "form-control", placeholder = "Informe o nome", maxlength = "200" })
+                        @Html.ValidationMessageFor(m => m.NoCampoTipo, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-8">
+                        @Html.LabelFor(m => m.TxObservacao, new { @class = "form-label text-gray-dark" })
+                        @Html.TextBoxFor(m => m.TxObservacao, new { @class = "form-control", placeholder = "Deixe sua observação...", maxlength = "300" })
+                        @Html.ValidationMessageFor(m => m.TxObservacao, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-6 text-start">
+                        <a href="@Url.Action("Index")" class="btn btn-outline-green">
+                            <i class="fas fa-chevron-left me-1"></i> Cancelar
+                        </a>
+                    </div>
+                    <div class="col-6 text-end">
+                        <button type="submit" class="btn btn-green-light text-white">
+                            <i class="fas fa-save me-1"></i> Cadastrar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

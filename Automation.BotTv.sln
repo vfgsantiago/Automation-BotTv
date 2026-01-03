@@ -1,0 +1,77 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35913.81 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Armazenamento de Dados", "Armazenamento de Dados", "{2DF25C42-C12F-4953-A234-4837AE39191C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Banco", "Banco", "{87576A88-7F8B-49D0-B116-8E0E41E48424}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Console", "Console", "{F5E3E082-D7D8-49CD-AA1A-36BE38FB9F23}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Telas", "Telas", "{160576D0-607F-468A-B64D-39EA7BAC51C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Automation.BotTv.UI.Web", "Automation.BotTv.UI.Web\Automation.BotTv.UI.Web.csproj", "{F4B6B5D1-513A-4E31-B1D9-228915146E90}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9B65D9A6-EE1B-4494-B3A2-775CA286B889} = {9B65D9A6-EE1B-4494-B3A2-775CA286B889}
+		{A16F9426-1F2E-400F-A183-24F653060D29} = {A16F9426-1F2E-400F-A183-24F653060D29}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Automation.BotTv.Console", "Automation.BotTv.Console\Automation.BotTv.Console.csproj", "{0279487D-D6D2-4061-9827-C0DB27A7FE31}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Automation.BotTv.Data", "Automation.BotTv.Data\Automation.BotTv.Data.csproj", "{8914ED52-19F0-4F31-82D7-FB4AB4224C4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Automation.BotTv.Repository", "Automation.BotTv.Repository\Automation.BotTv.Repository.csproj", "{A16F9426-1F2E-400F-A183-24F653060D29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Automation.BotTv.Model", "Automation.BotTv.Model\Automation.BotTv.Model.csproj", "{9B65D9A6-EE1B-4494-B3A2-775CA286B889}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Automation.BotTv.API", "Automation.BotTv.API\Automation.BotTv.API.csproj", "{F9DBEDE2-35F1-42B9-92CA-B7BDEC1DFC44}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F4B6B5D1-513A-4E31-B1D9-228915146E90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4B6B5D1-513A-4E31-B1D9-228915146E90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4B6B5D1-513A-4E31-B1D9-228915146E90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4B6B5D1-513A-4E31-B1D9-228915146E90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0279487D-D6D2-4061-9827-C0DB27A7FE31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0279487D-D6D2-4061-9827-C0DB27A7FE31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0279487D-D6D2-4061-9827-C0DB27A7FE31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0279487D-D6D2-4061-9827-C0DB27A7FE31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8914ED52-19F0-4F31-82D7-FB4AB4224C4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8914ED52-19F0-4F31-82D7-FB4AB4224C4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8914ED52-19F0-4F31-82D7-FB4AB4224C4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8914ED52-19F0-4F31-82D7-FB4AB4224C4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A16F9426-1F2E-400F-A183-24F653060D29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A16F9426-1F2E-400F-A183-24F653060D29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A16F9426-1F2E-400F-A183-24F653060D29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A16F9426-1F2E-400F-A183-24F653060D29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B65D9A6-EE1B-4494-B3A2-775CA286B889}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B65D9A6-EE1B-4494-B3A2-775CA286B889}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B65D9A6-EE1B-4494-B3A2-775CA286B889}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B65D9A6-EE1B-4494-B3A2-775CA286B889}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9DBEDE2-35F1-42B9-92CA-B7BDEC1DFC44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9DBEDE2-35F1-42B9-92CA-B7BDEC1DFC44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9DBEDE2-35F1-42B9-92CA-B7BDEC1DFC44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9DBEDE2-35F1-42B9-92CA-B7BDEC1DFC44}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F4B6B5D1-513A-4E31-B1D9-228915146E90} = {160576D0-607F-468A-B64D-39EA7BAC51C0}
+		{0279487D-D6D2-4061-9827-C0DB27A7FE31} = {F5E3E082-D7D8-49CD-AA1A-36BE38FB9F23}
+		{8914ED52-19F0-4F31-82D7-FB4AB4224C4E} = {87576A88-7F8B-49D0-B116-8E0E41E48424}
+		{A16F9426-1F2E-400F-A183-24F653060D29} = {87576A88-7F8B-49D0-B116-8E0E41E48424}
+		{9B65D9A6-EE1B-4494-B3A2-775CA286B889} = {2DF25C42-C12F-4953-A234-4837AE39191C}
+		{F9DBEDE2-35F1-42B9-92CA-B7BDEC1DFC44} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {319DBE6E-7672-4F92-9A21-67BE133E2064}
+	EndGlobalSection
+EndGlobal

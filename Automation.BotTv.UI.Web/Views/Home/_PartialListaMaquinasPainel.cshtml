@@ -1,0 +1,67 @@
+﻿@model List<PainelMaquinaMOD>
+
+<div class="tab-pane fade" id="maquinas" role="tabpanel" aria-labelledby="maquinas-tab">
+    <h4 class="text-gray-dark mb-3">Máquinas Vinculadas</h4>
+    <button type="button" class="btn btn-green-light text-white mt-3" data-bs-toggle="modal" data-bs-target="#modalVincularMaquina">
+        <i class="fas fa-link me-1"></i> Vincular Máquina
+    </button>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover mt-3">
+            <thead>
+                <tr>
+                    <th class="bg-gray-light text-gray-dark text-start">Código Interno</th>
+                    <th class="bg-gray-light text-gray-dark text-start">Identificação</th>
+                    <th class="bg-gray-light text-gray-dark text-start">Nome</th>
+                    <th class="bg-gray-light text-gray-dark text-center">Status</th>
+                    <th class="bg-gray-light text-gray-dark text-center">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="text-start">@item.CdMaquina</td>
+                            <td class="text-start">@item.Maquina.TxIdMaquina</td>
+                            <td class="text-start">@item.Maquina.NoMaquina</td>
+                            <td class="text-center">
+                                <span class="badge @(item.Maquina.SnAtivo == "S" ? "bg-success" : "bg-danger")">
+                                    @(item.Maquina.SnAtivo == "S" ? "Ativo" : "Inativo")
+                                </span>
+                            </td>
+                            <td class="text-center">
+                                <a href="#" class="text-green-light fs-5 btn-editar-maquina"
+                                   data-bs-toggle="modal" data-bs-target="#modalEditarMaquina"
+                                   data-cdmaquina="@item.CdMaquina"
+                                   data-txidmaquina="@item.Maquina.TxIdMaquina"
+                                   data-nomaquina="@item.Maquina.NoMaquina"
+                                   data-snativo="@item.Maquina.SnAtivo"
+                                   title="Editar Máquina">
+                                    <i class="fas fa-edit me-2"></i>
+                                </a>
+                                <a class="text-red btn-desvincular-maquina fs-5"
+                                   data-cdpainel="@item.CdPainel"
+                                   data-cdmaquina="@item.CdMaquina"
+                                   data-txidmaquina="@item.Maquina.TxIdMaquina"
+                                   title="Desvincular Máquina"
+                                   data-bs-toggle="modal"
+                                   data-bs-target="#confirmarDesvinculacaoModal">
+                                    <i class="fas fa-unlink"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        @await Html.PartialAsync("_PartialModalEditarMaquina", item)
+                        @await Html.PartialAsync("_PartialModalConfirmarDesvinculacaoMaquina")
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" class="text-center text-muted">Nenhuma máquina vinculada a este painel.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

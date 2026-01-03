@@ -1,0 +1,65 @@
+﻿@model PainelMOD
+
+<div class="modal fade" id="modalConsultaPainel_@Model.CdPainel" tabindex="-1" aria-labelledby="modalConsultaPainel_@Model.CdPainel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header text-gray-dark bg-gray-light">
+                <h5 class="modal-title" id="modalConsultaPainel_@Model.CdPainel">
+                    <i class="fas fa-file-alt me-2"></i>Detalhes do Painel
+                </h5>
+                <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body mx-4 text-start">
+                <div class="mb-4">
+                    <h6 class="text-orange mb-3"><i class="fas fa-columns me-2"></i>Painel</h6>
+                    <div class="row g-3">
+                        <div class="col-md-6 text-gray">
+                            <strong class="text-gray-dark">Nome:</strong><br />
+                            @Model.NoPainel
+                        </div>
+                        <div class="col-md-6 text-gray">
+                            <strong class="text-gray-dark">Tipo do painel:</strong><br />
+                            @Model.PainelTipo.NoPainelTipo
+                        </div>
+                        <div class="col-md-12 text-gray">
+                            <strong class="text-gray-dark">URL do painel:</strong><br />
+                            @Model.TxUrlPainel
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="mb-4">
+                    <h6 class="text-orange mb-3"><i class="fas fa-list me-2"></i>Informações</h6>
+                    <div class="row g-3">
+                        <div class="col-md-6 text-gray">
+                            <strong class="text-gray-dark">Usuário que cadastrou:</strong><br />
+                            @Model.CdUsuarioCadastrou
+                        </div>
+                        <div class="col-md-6 text-gray">
+                            <strong class="text-gray-dark">Data de cadastro:</strong><br />
+                            @Model.DtCadastro.ToString("dd/MM/yyyy HH:mm")
+                        </div>
+                    </div>
+                    @if(Model.CdUsuarioAlterou != 0)
+                    {
+                        <div class="row g-3">
+                            <div class="col-md-6 text-gray">
+                                <strong class="text-gray-dark">Usuário que alterou:</strong><br />
+                                @Model.CdUsuarioAlterou
+                            </div>
+                            <div class="col-md-6 text-gray">
+                                <strong class="text-gray-dark">Data de alteração:</strong><br />
+                                @Model.DtAlteracao.ToString("dd/MM/yyyy HH:mm")
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-outline-green-light" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-1"></i>Fechar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
